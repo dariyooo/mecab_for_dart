@@ -2,9 +2,6 @@ import 'package:code_assets/code_assets.dart';
 import 'package:hooks/hooks.dart';
 import 'package:logging/logging.dart';
 import 'package:native_toolchain_c/native_toolchain_c.dart';
-import 'package:native_toolchain_c/src/cbuilder/run_cbuilder.dart';
-import 'package:native_toolchain_c/src/native_toolchain/android_ndk.dart';
-import 'package:native_toolchain_c/src/tool/tool_resolver.dart';
 
 void main(List<String> args) async {
 
@@ -85,40 +82,5 @@ void main(List<String> args) async {
         ..level = Level.ALL
         ..onRecord.listen((record) => print(record.message)),
     );
-
-    // Only run the workaround for Android targets
-    if (input.config.code.targetOS == OS.android) {
-      await _bundleAndroidStdLib(input, output);
-    }
   });
-}
-
-/// Workaround for https://github.com/dart-lang/native/issues/2099
-/// Manually finds and bundles 'libc++_shared.so' from the Android NDK.
-Future<void> _bundleAndroidStdLib(BuildInput input, BuildOutputBuilder output) async {
-  final targetArchitecture = input.config.code.targetArchitecture;
-  
-  final aclang = await androidNdkClang.defaultResolver!.resolve(
-    ToolResolvingContext(
-      logger: Logger('')
-    ),
-  );
-
-  for (final tool in aclang) {
-    if (tool.tool.name == 'Clang') {
-      final sysroot = tool.uri.resolve('../sysroot/').toFilePath();
-      final androidArch = RunCBuilder.androidNdkClangTargetFlags[targetArchitecture];
-      final libPath = '$sysroot/usr/lib/$androidArch/libc++_shared.so';
-
-      output.assets.code.add(
-        CodeAsset(
-          package: input.packageName,
-          name: 'libc++_shared.so',
-          file: Uri.file(libPath),
-          linkMode: DynamicLoadingBundled(),
-        ),
-      );
-      break;
-    }
-  }
 }

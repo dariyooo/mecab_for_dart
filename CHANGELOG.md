@@ -1,5 +1,10 @@
 # Mecab for dart
 
+## 2.0.4
+
+* Fixed: `libc++_shared.so` was not bundled for armeabi-v7a
+* `hooks: ^2.0.2`, `native_toolchain_c: ^0.19.2`
+
 ## 2.0.3
 
 * Fixed: native_toolchain_c: ^0.17.2 breaks this package

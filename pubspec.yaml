@@ -1,6 +1,6 @@
 name: mecab_for_dart
 description: Dart plugin which provides binding to Mecab library (Japanese Morphological Analyzer)
-version: 2.0.3
+version: 2.0.4
 homepage:
   https://github.com/captaindario/mecab_for_dart
 funding:
@@ -15,9 +15,12 @@ dependencies:
   universal_ffi: ^1.1.0
   ffi: ^2.2.0
   universal_io: ^2.2.2
-  hooks: ^1.0.1
+  hooks: ^2.0.2
   code_assets: ^1.0.0
-  native_toolchain_c: ^0.17.5
+  native_toolchain_c: ^0.19.2
+  # bundles libc++_shared.so from the NDK on Android; depending on it is
+  # enough, it needs no code. dart-lang/native#2099
+  android_libcpp_shared: ^0.2.1
   logging: ^1.3.0
 
 dev_dependencies:
