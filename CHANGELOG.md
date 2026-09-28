@@ -1,5 +1,9 @@
 # Mecab for dart
 
+## 2.0.5
+
+* fix: use mmap on unix platforms
+  
 ## 2.0.4
 
 * Fixed: `libc++_shared.so` was not bundled for armeabi-v7a
