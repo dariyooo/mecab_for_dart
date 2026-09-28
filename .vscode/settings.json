@@ -3,5 +3,6 @@
         "*.rmd": "markdown",
         "fstream": "cpp",
         "locale": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "/Users/darioklepoch/dev/dart_packages/mecab_for_dart/windows"
 }

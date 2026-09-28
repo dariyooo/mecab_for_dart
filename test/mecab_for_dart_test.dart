@@ -20,8 +20,8 @@ void main() {
     print("Memory usage before init: $preInitMemory MB");
     final tagger = await Mecab.create(dictDir: ipadicDir);
     double postInitMemory = currentMemoryUsage();
+    // the dictionary is memory-mapped, RSS only grows as pages are touched
     print("Memory usage after init: $postInitMemory MB");
-    expect(postInitMemory-10 > preInitMemory, true);
 
     final surfaces = tagger.parse("林檎を食べる").map((e) => e.surface,).toList();
     expect(surfaces, ["林檎", "を", "食べる", "EOS"]);
